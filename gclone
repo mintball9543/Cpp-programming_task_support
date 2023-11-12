@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# GitHub 사용자 이름(username)와 토큰(token)을 하드코딩
+username="mintball9543"
+token="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"
+
+# 첫 번째 인자로 GitHub 리포지토리 링크를 받음
+link="$1"
+
+# "https://" 부분을 제거
+link=${link#https://}
+
+# git clone 명령어 실행
+git clone "https://$username:$token@$link"
+
+# "week10-class-mintball9543" 부분을 new_dir 변수에 저장
+new_dir=$(basename "$link" .git)
+
+cd "$new_dir"
+
+cp ../gpush gpush
+cp ../com com

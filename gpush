@@ -1,0 +1,35 @@
+#!/bin/bash
+# .gitignore 파일 경로
+gitignore_file=".gitignore"
+
+# 무시할 파일 이름
+file_to_ignore="gpush"
+
+# .gitignore 파일이 없는 경우 생성
+if [ ! -f "$gitignore_file" ]; then
+    touch "$gitignore_file"
+fi
+
+# .gitignore 파일에 파일을 추가하기 전에 이미 존재하는지 확인
+if grep -q "$file_to_ignore" "$gitignore_file"; then
+    echo "파일 이미 .gitignore에 추가되어 있습니다."
+else
+    echo "$file_to_ignore" >> "$gitignore_file"
+    echo "파일을 .gitignore에 추가했습니다."
+fi
+
+# 사용자 이름과 토큰을 설정
+username="mintball9543"
+token="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"
+
+# 사용자 이름과 토큰을 사용하여 자격 증명 설정
+git config credential.helper "store --file=.git-credentials"
+echo "https://$username:$token@github.com" > .git-credentials
+
+# .git-credentials 파일에 사용자 이름과 토큰 정보를 저장
+echo "https://$username:$token" > .git-credentials
+
+# git add, git commit, git push를 실행
+git add .
+git commit -m "commit_msg"
+git push
